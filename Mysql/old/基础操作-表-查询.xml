@@ -1,0 +1,54 @@
+
+<1:查询表全部信息 >select * from table_name; //速度很慢
+
+<2:查询特定信息 >select 列1，列2，列3。。。列n from table_name where <条件>
+
+<3:指定别名查询 >select 列1 as 别名1，列2 as 别名2  from table_name where 条件 <指定别名查询 as 可以省略如下>
+	select 列1 别名1，列2 别名2  from table_name where 条件 <指定别名查询不建议用>
+
+<4:去除重复数据 distinct>
+	<例:> select distinct id, distince age form role;<去除重复数据的查询>
+
+<5:范围查询 between...and >
+	<例:> select * from role where roleId between 10000 and 10100 (查询roleId>10000&&roleId<10100)   >
+
+<6:反-范围查询 not between...and >
+	<例:> select * from role where roleId not between 10000 and 10100
+
+<7:特定条件查询-离散查询 in >
+	<例:> select * from role where roleId in (10000,10199,11310, 20534);
+
+<8:特定条件--反向查询 not in >
+	<例:>select * from role where roleId not in(10000,10199,11310, 20534);
+
+<9:查询空数据列 is null >
+	<例:>select * from role where level is null;
+
+<10:查询非空数据列 is not null>
+	<例:>select * from role where level is not null
+
+<11:匹配模式 like (关键字查询)>
+	关键字查询通常和”%”或者”_”一起使用,其中%通常代表零个或者多个字符, 而 _ 通常代表单个字符(格式:where 字段名 like 匹配字符)
+	
+	<例1:单字查询> select * from role where nickname like '_A_';<查询nickname中包含字符'A'的>	
+	<例2:单字反向查询> select * from role where nickname not like '_A_';	
+	<例3:多字查询>select * from role where nickname like '%AS%';	
+	<例4:多字反向字查询>select * from role where nickname not like '%_AS_%';	
+	<例5:以AS做开头的查询>select * from role where nickname like 'AS%';	
+	<例6:以AS做结尾的查询>select * from role where nickname like '%AS';	
+	<例7:不是以AS做结尾的查询>select * from role where nickname not like '%AS';	
+	<例8:不是以AS做开头的查询>select * from role where nickname not like 'AS%';	
+	<例9:字段有包含数字的查询>select * from role where nickname like '[0-9]';	
+	<例A:字段不包含数字的查询>select * from role where nickname like '[!0-9]';	
+	<例B:字段包含小写字母的查询>select * from role where nickname like '[a-z]';
+
+<12:正则表达式 regexp><语法: where 字段名 regexp 匹配字符串; >
+	regular expression<正则表达式>的缩写regexp 和 rlike 是同义词，也就是说二者可以互换，效果是一样的	
+	<例:>select nickname from role where nickname regexp '公';
+	
+	
+
+
+
+
+

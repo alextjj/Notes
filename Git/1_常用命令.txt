@@ -1,0 +1,84 @@
+	cat XX   	//查看XX文件内容
+	tail XX   	//查看XX文件内容查看后n行
+
+
+Git基本常用命令如下:
+    //基础
+    git init 	        // 把当前的目录变成可以管理的git仓库，生成隐藏.git文件。
+    git add XX 	        //把xx文件添加到暂存区去。
+    git commit -m “XX”   // 提交文件 –m 后面的XX是注释。
+    git status	        //查看仓库状态
+    git diff  XX         //查看XX文件修改了那些内容
+    git rm XX            //删除XX文件
+
+
+    //历史记录
+    git log 		        // 查看历史记录
+    git log -pretty=oneline //查看历史记录简略方式显示
+	git log --oneline		//查看历史记录简略方式显示		 
+	git log --oneline --graph //查看 log带分支信息	
+	
+	git reflog              //查看历史记录的版本号id
+	git log --graph			//查看分支合并情况	
+	git log --graph --pretty=oneline --abbrev-commit //查看分支合并情况
+
+    //版本还原
+    git reset --hard HEAD^		//文件还原到上个版本(head=仓库当前版本)
+    git reset --hard ~n			//文件还原为前数n个版本
+    git reset --hard git版本编号	//文件返回到指定版本,文件还原后的取消还原,也可以用这个退回到最后操作的文件(git窗口未关闭情况下)
+
+	//文件还原
+    git checkout -- XX          // 把XX文件在工作区的修改全部撤销。
+	git checkout 版本号 -- fileName.xx	//某个文件 退回到 某个版本
+
+
+    //分支操作
+    git branch name     //创建分支
+    git checkout dev    //切换dev分支
+    git checkout master //切换回master分支
+    git checkout -b dev //创建dev分支 并切换到dev分支上
+    git branch          //查看当前所有的分支,正在使用的branch 前面有 "*"
+    git branch -d dev   //删除dev分支
+    git push origin :branchName //删除远程分支
+    git remote prune origin//清理远程分支，把本地不存在的远程分支删除
+	
+	
+	
+	//合并分支
+	1: merge
+		git merge dev       //将dev分支合并到当前分支
+		git merge --no-ff -m "描述信息" branchName //添加描述信息的merge
+		git log --graph --pretty=oneline --abbrev-commit //查看合并情况	
+	2: rebase
+		git rebase dev	   //将dev分支合并到当前分支
+		..............	   //change conflite
+		
+	git add .			//提交修改
+	git rebase --continue //继续合并
+	git rebase --abort	  //放弃本次合并(安全)
+	git rebase --skip	  //引起冲突的commits会被丢弃（高风险）
+		
+
+
+    //隐藏操作
+    git stash //把当前的工作隐藏起来 等以后恢复现场后继续工作
+    git stash list //查看所有被隐藏的文件列表
+    git stash apply //恢复被隐藏的文件，但是内容不删除
+    git stash drop// 删除文件
+    git stash pop// 恢复文件的同时 也删除文件
+
+
+
+    //远程仓库操作
+    git remote      //查看远程库的信息
+    git remote -v   //查看远程库的详细信息
+    git clone https://github.com/RTplay/testgit.git // 从远程库中克隆
+    git clone git@github.com:USER_NAME/OGJECT.git   // 从远程库中克隆
+    git push -u(第一次要用-u 以后不需要) origin master //把当前分支推送到远程库的master分支
+    git push origin master  //Git会把master分支推送到远程库对应的远程分支上
+    git remote add origin https://github.com/RTplay/testgit.git// 关联一个远程库
+
+
+	//git 问题处理方案 
+	https://github.com/k88hudson/git-flight-rules/blob/master/README_zh-CN.md
+

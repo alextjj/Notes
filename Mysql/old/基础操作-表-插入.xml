@@ -1,0 +1,16 @@
+<语法:1>insert into 表名(列名1，列名2..... 列名n) vlaues (值1，值2...值n);	
+					
+<语法:2>insert into 表名 set 列名1=值1，列名2=值2....列名n=值n;
+
+<语法:3多条插入>insert into 表名 (column1, column2, column3,......) values
+								  (值1, 值2, 值3,......),
+								  (值11, 值12, 值13,......),
+								  ......
+								  (值n1, 值n2, 值n3,......);
+				insert into 表名 values(值1, 值2,....) <注意:此种方法必须保证插入的数据和column一一对应>< 不建议用此方法 >
+
+<语法4:缺省插入>
+	<例: 表中有3个字段roleId nickname level>insert 表名 (roleId) values(10001),(10002),....;
+	<例: insert into table_name (字段1, 字段2) values(值1, 值2),(值1, 值2),(值1, 值2); >
+								  
+

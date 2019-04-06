@@ -1,0 +1,13 @@
+
+<limit> 
+SELECT * FROM table  LIMIT [offset,] rows | rows OFFSET offset
+SELECT * FROM table  LIMIT  rows OFFSET offset
+
+<例:>select * from role limit 3; 		(说明:查询role 表的前 3 条数据)
+<例:>select * from role limit 3, 100;	(说明:查询role 表中的 从第3行开始的 100 条记录)	
+	
+	注意:
+	SELECT * FROM table  m, n; 
+	m: 查询的起始位置 n: 需要查询的条数 
+	m n 必须为 正整数
+	

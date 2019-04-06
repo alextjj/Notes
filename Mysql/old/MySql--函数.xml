@@ -1,0 +1,12 @@
+
+< count(用来计数)>
+< sum(用来求和) >
+< max(求最大值) >
+< min(求最小值) >
+< avg(求平均值) >
+< select now()>输出当前时间
+
+<例1:> select max(rank) as 最大排名 ,scroe as 积分 from qualifying_rank
+
+<例2:>select count(*) as 员工总数, 2016 - min(year) as 最大年龄，
+2016 - max(year) as 最小年龄,2016 - avg(year) as 平均年龄 from birth;

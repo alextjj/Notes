@@ -1,0 +1,90 @@
+where语句常见形式:
+
+<1: 比较运算符>
+	 = 表示等于、 	< 表示小于、 <= 表示等于、> 表示大于、>=表示大于等于、 
+	 !=表示不等于、 <> 表示不等于、
+	 <=>表示null 安全的等于，也就是两者要么相等要么都为null。如果一边的值不为空，那么必须两边的值相等。
+		不可能出现一个为空，一个不为空的情况。
+ 
+<2: between...and >用于: 范围性的选择
+	<例:>select * from role where roleId between 10010 and 10099;
+	
+<3: in(xxx,...., xxx) >用于: 选择一些离散的数据 in(xxx, xxx, xxx)
+	<例:> select * from role where roleId in(10011, 10053, 10199); 使用场景类似于枚举类型
+	 
+<4: not> 操作符表示取反，但是它一般不单独使用 , 写在相应的字段之后，在其他运算符之前 如 not int(xxxx)
+	<例:>select * from role where role NOT between 10010 and 10099;
+	<例:> select * from role where roleId NOT in(10011, 10053, 10199);
+	
+<5: is null 和 is not null><为空和非空判定>
+	可以用 where 字段名 is null 来查找那些为null 的字段，		<为空>
+	可以用 where 字段名 is not null 来查找那些不为null 的字段。<非空>
+	可以用 where 字段名 <=> null来找到那些字段值为null 的记录 <相等||都为空>
+	
+	
+<6: like> where 字段名 like 完全匹配字符串;  <模式匹配 其中 "%" 代表替换 零个或者多个字符，而 "_" 通常代表 替换一个字符>
+	<例1:单字查询> select * from role where nickname like '_A_';<查询nickname中包含字符'A'的>
+	<例2:单字反向查询> select * from role where nickname not like '_A_';
+	<例3:多字查询>select * from role where nickname like '%AS%';
+	<例4:多字反向字查询>select * from role where nickname not like '%_AS_%';
+	<例5:以AS做开头的查询>select * from role where nickname like 'AS%';
+	<例6:以AS做结尾的查询>select * from role where nickname like '%AS';
+	<例7:不是以AS做结尾的查询>select * from role where nickname not like '%AS';
+	<例8:不是以AS做开头的查询>select * from role where nickname not like 'AS%';
+	<例9:字段有包含数字的查询>select * from role where nickname like '[0-9]';
+	<例A:字段不包含数字的查询>select * from role where nickname like '[!0-9]';
+	<例B:字段包含小写字母的查询>select * from role where nickname like '[a-z]';
+	
+	
+<7: regexp>	regexp是regular expression<正则表达式>的缩写
+			regexp 和rlike 是同义词，也就是说二者可以互换，效果是一样的
+	<语法: where 字段名 regexp 匹配字符串; >
+	<例:>select nickname from role where nickname regexp '公';
+	
+	
+<-----------------文档说明--------------------->
+
+1.早在前面讲update、insert、delete的时候，我们就接触过where子句了，但是我们那里讲的比较简单，也不够系统，我们这里就系统的分析一次。
+2.where子句的特点就是如果后面的表达式为true，那么就把这些信息进行相应的处理，不管用于修改、删除，还是查询。
+3.对于where子句的几种常见形式，我们在下面分类给出，如果读者朋友们不熟悉的话，也不妨亲自动手试一试。
+
+********第一类************比较运算符*******************
+1.比较运算符用于比较两个数据，MySQL支持的常用的比较运算符有:
+=表示等于、<表示小于、<=表示小于等于、>表示大于、>=表示大于等于。
+2.其中<>表示不等于，而!=也表示不等于。
+3.而<=>表示null安全的等于，也就是两者要么相等要么都为null。如果一边的值不为空，那么必须两边的值相等。不可能出现一个为空，一个不为空的情况。
+其实就是为了排除null = null的情况,建议相等判定 用<=>
+
+********第二类********between********and****************
+1.我们用between.....and来表示选择一个范围中的数据。
+2.比如我们想选择所有大于等于3并且小于等于7之间的所有数据，
+  可以使用where xxx  between 3 and 7;
+3.其中between...and对于取值在一个区间中的数据特别有效。
+
+********第三类**************in****************************
+1.有时候我们不想在一个区间中取值，我们只是想取出一些离散的数据，这时候就需要in操作符了enum。
+2.比如我们想取出id为2,4,5,7的数据，那么我们的where子句可以这么写：
+where  id  in (2,4,5,7);
+3.当然朋友们注意一下写法，那就是多个元素用是小括号括起来的，而且多个元素之间是用逗号分开。
+
+********第四类***not操作符<取反>******************************
+1.not操作符表示取反，但是它一般不单独使用，它可以和between...and结合使用，还可以和in结合使用，它表示取相反的结果。
+2.上面我们查询了id在2,4,5,7的结果，下面我们就查询id不在该范围中的所有记录，我们的操作如下：
+select * from xinxin where id not in(2,4,5,7);
+3.当然我们还可以排除3到7这个范围的数据，操作范例如下：
+select * from xinxin where id not between 3 and 7;
+4.我不知道朋友们是否对not写到哪里有疑惑，对于not的定位很简单：在相应的字段之后，在其他运算符之前。
+5.上述做法的原因也很简单，因为字段后面跟逻辑表达式，我们直接对逻辑表达式取反即可。
+
+**********第五类***********是否为空*********************
+1.如果一条记录中的某个字段为null，那么表示该字段并没有存储数据。
+2.有时候我们对某些记录的为null的数据比较关注，我们可以用where  字段名is  null 来查找那些为null的字段，用where 字段名is not null来查找那些不为null的字段。
+3.比如我们可以查找那些age字段为null的记录：
+   select * from xinxin where age is null;
+4.当然我们前面也有介绍，我们也可以用where 字段名 <=> null来找到那些字段值为null的记录，比如：
+	a: select * from xinxin where age is not null;
+	b: select * from xinxin where age != null; 或者 select * from xinxin where age <=> null; 
+	
+5.可能有人会问，那我们是否可以用where  字段名=null呢，
+答案是不可以，就是因为该运算会返回一个null，那么该条件就会一直为假，我们看下面操作：
+select * from xinxin where age = null;

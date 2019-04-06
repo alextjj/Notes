@@ -1,0 +1,57 @@
+//创建远程key
+在bash下
+ssh-keygen -t rsa -C "email@qq.com"
+会生成
+id_rsa  和 id_rsa.pub 
+两个key id_rsa=private id_rsa.pub=public
+vim id_rsa.pub 的内容是 创建github ssh key 所需要的
+
+
+//--------------------------------------
+1: github创建仓库	
+	首先，登陆GitHub，然后，在右上角找到“new repository”按钮，
+	填入 Repository name(仓库名)
+	点击 Create repository
+	就可以创建一个新的仓库
+	
+	
+2:本地仓库和github仓库关联
+	在本地仓库目录下输入以下命令
+	注意:	
+	把‘用户名’换成你自己的用户名
+	把‘github仓库名’换成你自己的仓库名	
+	git remote add origin git@github.com:用户名/github仓库名.git
+	
+3:把本地库的所有内容推送到远程库上	
+	git push -u origin master
+	把本地库的内容推送到远程，用git push命令，实际上是把当前分支master推送到远程。
+	由于远程库是空的，我们第一次推送master分支时，加上了-u参数，
+	Git不但会把本地的master分支内容推送的远程新的master分支，
+	还会把本地的master分支和远程的master分支关联起来，
+	在以后的推送或者拉取时就可以简化命令。
+	git push origin master
+	
+	
+注意 SSH警告:
+	当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告：
+	The authenticity of host 'github.com (xx.xx.xx.xx)' can't be established.
+	RSA key fingerprint is xx.xx.xx.xx.xx.
+	Are you sure you want to continue connecting (yes/no)?
+	这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，
+	需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。
+
+	Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：
+
+	Warning: Permanently added 'github.com' (RSA) to the list of known hosts.
+	这个警告只会出现一次，后面的操作就不会有任何警告了。
+	如果你实在担心有人冒充GitHub服务器，输入yes前可以对照GitHub的RSA Key的指纹信息是否与SSH连接给出的一致。
+	
+		
+4: 克隆
+	git clone git@github:yourName/Object.git
+	git clone https://github.com/yourName/Object.git(缺点慢,每次都要password)
+	
+
+
+	
+	

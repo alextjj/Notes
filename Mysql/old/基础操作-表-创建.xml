@@ -1,0 +1,33 @@
+
+<1:创建> create table table_name(column type, cloumn2 type);
+
+<例:>create table role(roleId int(11), uid int(11), nickname varchar(16));
+
+<例:>create table role_3(uid int(11), roleId int(11), nickname varchar(32), primary key(uid, roleId)) 
+	engine=MyIsAm default charset=utf8;	< primary key 主键 engine 数据库引擎 ><复合主键>
+		
+<例:>create table role(roleId int(11) not null primary key, nickname varchar(32), uid int) 
+		engine = MyIsAm;< primary--主键.....engine--数据库引擎 ><单主键>
+
+<例:> create table role_4( uid int not null auto_increment, roleId int not null, nickname varchar(32), primary key(uid))
+		engine=myisam default charset=utf8;
+		<带自增长的字段创建 注意: 自增长的字段必须是主键 && 一张表中有且只有一个 自增长字段>
+
+
+<2:查看库里的所有表> 
+	show tables;
+
+<3:查看表结构>
+	方法1:desc table_name;
+	方法2:describe table_name;
+	
+<4:查看表的创建语句>
+	show create table  table_name;	
+	
+
+
+primary key 	主键
+engine 			数据库引擎
+charset 		字符编码
+AUTO_INCREMENT	自增长
+

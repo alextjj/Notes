@@ -1,0 +1,16 @@
+< 1:只删掉某个表的部分数据>
+	delete from 表名 where 条件表达式
+< 2:删除所有的数据但是保留这个表>
+	delete from 表名
+	truncate 表名; <清空表中所有数据-保留表结构>
+< 3:直接把这个表删除>
+	drop table 表名 <删除表-数据和表结构都消失>
+	
+	
+TRUNCATE,DELETE,DROP放在一起比较：
+TRUNCATE TABLE：删除内容、释放空间但不删除定义。
+DELETE TABLE:	删除内容不删除定义，不释放空间。
+DROP TABLE：	删除内容和定义，释放空间。
+
+truncate 的运行原理，它的操作就是先执行一个 drop 来彻底删除这个表，
+			然后执行一个create 来建立一个同名的表。

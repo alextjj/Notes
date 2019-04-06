@@ -1,0 +1,12 @@
+<语法:>	update 表名 set column1=值1, column2=值2,......
+		update 表名 set column1=值1, column2=值2,......where 条件
+
+<例:>
+	update role set realMoney=1000;							//表中realMoney字段 全部设为1000
+	
+	update role set realMoney=1000 where roleId = 10001;	//表中 roleId=10001的玩家的realmoney设为1000
+	
+	update role set realMoney = relmoney + 1000;			//表中realMoney字段全部 增加1000
+	
+	update role set realMoney = roleLevel * 100;			//其他字段数据带入 使用
+		

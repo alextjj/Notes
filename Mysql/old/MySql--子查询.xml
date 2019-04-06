@@ -1,0 +1,36 @@
+1.用在 where 子句中的叫做 where 型子查询。
+2.用在 from 子句中的叫做 from 型子查询。
+3.用在 exists 子句中的叫做 exists 型子查询。
+
+<1: where型子查询>
+	<例:>select * from comB where id >=( select max(id) from comA); <表b中id不小于表A的最大id>
+	<例:>select * from comB where id in(slect id from comA);		<表B和表A中的相同id的具体信息>
+	<例:>select * from comB where (id, name, year) in (select * from comA);<表B和表A的相同的信息>
+<2: from型子查询>from型子查询会产生一个临时表，因此我们必须为from 表名的表指定一个别名(零时表名)
+	<例:>select * from comB where id >=( select max(id) from comA);
+	<例:>select * from comB where id in(slect id from comA);
+	<例:>select * from comB where (id, name, year) in (select * from comA);
+
+
+<------------------例----------------------------------->
+table comA  数据如下				table comB
+id		name		year			id		name	year
+1		辛星		1992			0		张文科	1989
+2		辛勇		1987			2		辛勇	1987
+3		小倩		1994			4		华荣飞	1993
+4		小楠		1995			6		李强	1987
+
+
+
+<子查询分类>
+<1: 标量子查询> 第一类就是标量子查询，它返回的是一个具体的数值，比如我们在员工表中查找工号最小的年龄，
+				它会返回一个特定的值，比如22。		由于由于标量子查询返回的是一个精确值，
+				因此它经常和where子句中的比较运算符一起搭配使用。
+
+<2: 列子查询> 它返回的是一列值，它的一个特点就是这一列值具有相同的数据类型，
+				因此它特别适合和 where 子句中的 in 操作符一起用。
+				
+<3: 行子查询> 它返回的是一行值，常见的就是我们查询一条记录，比如我们就查询员工号为 02321 
+				的这个员工的姓名和工龄，那么这就返回一个 1 行 2 列的一条记录。
+				
+<4: 表子查询> 它返回的是 N 行 M 列值，比如我们常用的select * 一般来说返回的就是 N 行 M 列的值。

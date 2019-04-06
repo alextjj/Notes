@@ -1,0 +1,14 @@
+
+//查
+git config --global --list 
+git config -l
+ 
+//增
+git config  --global --add user.name 佳佳
+ 
+//删
+git config  --global --unset user.name
+ 
+//改
+git config --global user.name 月月
+git config --global --replace-all user.name 月月
