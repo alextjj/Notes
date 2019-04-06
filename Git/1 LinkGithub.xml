@@ -1,0 +1,64 @@
+因为本地Git仓库和GitHub仓库之间的传输是通过SSH加密传输的，GitHub需要身份识别，
+GitHub只要知道了你的公钥，就可以确认只有你自己才能推送，所以需要配置ssh key。
+
+1.创建SSH Key。
+	在用户主目录（C:\Users\Administrator）下，看看有没有.ssh文件，如果有，
+	再看文件下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接到
+	下一步。如果没有，打开Git Bash，输入以下命令创建SSH Key:
+	
+	命令：ssh-keygen -t rsa -C "123@126.com"  //123是你自己注册GitHub的邮箱
+ 
+	然后一路直接回车就哦了,屏幕出现Generation public/private rsa key pair，
+	就说创建成功啦，再去用户主目录里找到.ssh文件夹，里面有id_rsa和id_rsa.pub两个文件，
+	这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露，id_rsa.pub是公钥，可以公开。 
+
+
+2.GitHub 注册 SSH Key
+	登录GitHub,打开“Account settings”--“SSH Keys”页面，然后点击	“SSH and GPG keys”，
+	点击"New SSH key"填上Title（看心情填），在Key文本框里粘贴 id_rsa.pub 文件里的
+	全部内容(识别码)。点“Add Key”，你就应该看到已经添加的Key，
+	可以添加多个Key(对应 各自的ssh key) 
+	
+
+3.验证是否成功，
+	在git bash里输入命令: 	ssh -T git@github.com
+	
+	如果初次设置的话，会出现如下信息，
+	The authenticity of host 'github.com(192.168.0.1)' can't be established. ....
+	输入yes 同意即可
+	老用户 提示如下：
+	Hi alextjj! You've successfully authenticated, but GitHub does not provide 
+	shell access.
+	
+
+4.设置 git config 
+	username和email 因为github每次commit都会记录他们)
+	git config --global user.name  "name"		//你的GitHub登陆名
+	git config --global user.email "123@126.com"//你的GitHub注册邮箱
+	
+	
+5.链接远程仓库
+	git remote add git@github.com:NAME/repository.git //关联一个远程库命令
+	
+	
+6: github创建仓库	
+	首先，登陆GitHub，然后，在右上角找到“new repository”按钮，
+	填入 Repository name(仓库名)
+	点击 Create repository
+	就可以创建一个新的仓库	
+	
+	
+7.上传文件(先在GitHub上建好一个新的仓库)	
+	git push -u origin master 	//关联后,第一次推送master分支的所有内容命令	
+	git push origin master		//推送最新修改
+	git push origin master -f 	//强行使用当前分支 替换远程的分支
+	
+	也可以 直接克隆 远程仓库到本地
+	git clone <版本库的网址> <本地目录名>
+	git clone git@github.com:YourName/repository.git repository
+	git clone https://github.com/yourName/Object.git(缺点慢,每次都要password)
+	
+
+
+	
+	
